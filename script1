@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Variables
+name="ZOXO"
+course="Cybersecurity"
+directories=("Networking" "Architecture" "HardwareHacking" "WSA" "LSA" "Coding" "HackerMindset" "SecurityManagement")
+msg="Welcome"
+
+# Structure
+mkdir -p "$name/$course"
+
+for dir in "${directories[@]}"; do
+    mkdir -p "$name/$course/$dir"
+    echo "$msg" > "$name/$course/$dir/msg.txt"
+done
+
+echo "Directories structure successfully generated."
