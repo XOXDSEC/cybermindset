@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Shows current user
+echo "Current user: $(whoami)"
+
+# Shows the host's name
+echo "Hostname: $(hostname)"
+
+# Shows OS
+echo "OS: $(uname -o)"
+
+# Current path 
+echo "Path: $(pwd)"
