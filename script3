@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Displays system and user info
+show_info() {
+  echo "=== System Information ==="
+  echo "Operating System: $(uname -s) $(uname -r)"
+  echo "CPU: $(lscpu | grep "Model name" | awk -F: '{print $2}' | sed 's/^ *//'
+)"
+  echo "Total Memory: $(free -g | awk '/^Mem:/{print $2 " GB"}'
+)"
+  echo "Total Disk Space: $(df -h / | tail -1 | awk '{print $2}')"
+
+  echo -e "\n=== User Information ==="
+  echo "Username: $USER"
+  echo "Home Directory: $HOME"
+  echo "Current Directory: $(pwd)"
+  echo "Logged-in Users: $(whoami)"
+}
+
+# Check script parameters
+while getopts ":o:h" opt; do
+  case ${opt} in
+    o )
+      # -o is used to save the output to a file
+      show_info > "$OPTARG"
+      echo "The script result has been saved to the file $OPTARG."
+      exit 0
+      ;;
+    h )
+      # -h is used to display help
+      echo "Usage: $0 [options]"
+      echo "  No options       Displays the information in the terminal."
+      echo "  -o <file>        Saves the information to a file."
+      echo "  -h               Displays this help message."
+      exit 0
+      ;;
+    \? )
+      echo "Invalid option: $OPTARG" 1>&2
+      exit 1
+      ;;
+  esac
+done
+
+# no parmeters will show all info on CLI
+show_info
